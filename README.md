@@ -1,20 +1,23 @@
-# Object.assign
+# Using Object.assign
 
 ## Learning Goals
 
-- Use `Object.assign` to merge object properties
+- Identify `Object.assign`
+- Non-destructively assign new data with `Object.assign()`
 
 ## Introduction
-JavaScript provides us access to a global `Object`. `Object` that has a bunch of
-helpful methods we can use. One of those methods is `Object.assign()`, which
-allows us to combine properties from multiple `Object`s into a single `Object`.
-In this lab, we're going to learn how to use `Object.assign` to do just that.
 
-### `Object.assign()`
+In JavaScript, we have access to a global `Object` that comes with several
+helpful methods ready for us to use. One of these methods is `Object.assign()`,
+which allows us to combine properties from multiple `Object`s into a single
+`Object`. In this lab, we're going to learn how to use `Object.assign` to do
+just that.
 
- The first argument passed to `Object.assign()` is the first `Object` into which
- all of the properties are merged. Every additional argument is an `Object`
- whose properties we want to merge into the first `Object`:
+## Identify `Object.assign()`
+
+The first argument passed to `Object.assign()` is the first `Object` into which
+all of the properties are merged. Every additional argument is an `Object` whose
+properties we want to merge into the first `Object`:
 
 ```js
 Object.assign(firstObject, secondObject, thirdObject, ...);
@@ -31,7 +34,7 @@ Object.assign({ eggs: 3 }, { chocolateChips: '1 cup', flour: '2 cups' }, { flour
 // { eggs: 3, chocolateChips: "1 cup", flour: "1/2 cup" }
 ```
 
-Pay attention to the `flour` property in the above example. **If multiple
+Let's look at the `flour` property in the above example. **If multiple
 `Object`s have a property with the same key, the last key to be defined wins
 out**. Essentially, the last call to `Object.assign()` in the above snippet is
 wrapping all of the following assignments into a single line of code:
@@ -46,13 +49,13 @@ recipe.flour = '2 cups';
 recipe.flour = '1/2 cup';
 ```
 
-### Use `Object.assign()` to Non-destructively Assign New Data
+## Non-Destructively Assign New Data with `Object.assign()`
 
 A common pattern for `Object.assign()` is to provide an empty `Object` as the
 first argument. That way we're providing an entirely new `Object` instead of
 modifying or overwriting the properties of an existing `Object`. This pattern
 allows us to rewrite the above `destructivelyUpdateObject()` function in a
-nondestructive way:
+non-destructive way:
 
 ```js
 function nondestructivelyUpdateObject(obj, key, value) {
@@ -71,53 +74,19 @@ recipe;
 // => { eggs: 3 }
 ```
 
-It's important that we merge everything into a new, empty `Object`. Otherwise, we
-would be modifying the original `Object`. In your browser's console, test what
-happens if the body of the above function were `return Object.assign(obj, {
-[key]: value });`. Uh oh, back to being destructive!
-
-Let's write a function for a restaurant that accepts an old menu and some
-changes we want to make and returns a new menu **without modifying the old
-menu**:
-
-```js
-function createNewMenu (oldMenu, menuChanges) {
-  return Object.assign({}, oldMenu, menuChanges);
-}
-
-const tuesdayMenu = {
-  cheesePlate: {
-    soft: 'Chèvre',
-    semiSoft: 'Gruyère',
-    hard: 'Manchego'
-  },
-  fries: 'Sweet potato',
-  salad: 'Caesar'
-};
-
-const newOfferings = {
-  cheesePlate: {
-    soft: 'Brie',
-    semiSoft: 'Fontina'
-  },
-  salad: 'Southwestern'
-};
-
-const wednesdayMenu = createNewMenu(tuesdayMenu, newOfferings);
-
-wednesdayMenu;
-// => { cheesePlate: { soft: "Brie", semiSoft: "Fontina", hard: "Manchego" }, fries: "Sweet potato", salad: "Southwestern" }
-
-tuesdayMenu;
-// => { cheesePlate: { soft: "Chèvre", semiSoft: "Gruyère", hard: "Manchego" }, fries: "Sweet potato", salad: "Caesar" }
-```
-
-Bon appétit!
+It's important that we merge everything into a new, empty `Object`. Otherwise,
+we would be modifying the original `Object`. In your browser's console, test
+what happens if the body of the above function were `return Object.assign(obj, {
+[key]: value });`. Uh oh, back to being destructive! Fortunately, we can avoid
+that by following the example above.
 
 ## Conclusion
 
-As you can see, `Object.assign` can be useful both in a destructive and non-destructive capacity, depending on how you need to use it. Play around with it in console and see what happens when you use different data types when you try to combine objects - the results might surprise you! 
+Depending on how you need to use it, `Object.assign` can be useful in both
+destructive and non-destructive ways. Play around with it in your console. What
+happens when you use different data types while combining objects? The results
+might surprise you! 
 
 ## Resources
 
-[Object.assign]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+- [Object.assign at Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
