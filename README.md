@@ -10,7 +10,7 @@
 In JavaScript, we have access to a global `Object` that comes with several
 helpful methods ready for us to use. One of these methods is `Object.assign()`,
 which allows us to combine properties from multiple `Object`s into a single
-`Object`. In this lab, we're going to learn how to use `Object.assign` to do
+`Object`. In this lesson, we're going to see how to use `Object.assign` to do
 just that.
 
 ## Identify `Object.assign()`
