@@ -4,7 +4,6 @@
 
 - Identify `Object.assign`
 - Non-destructively assign new data with `Object.assign()`
-- Practice merging object properties with `Object.assign()`
 
 ## Introduction
 
@@ -78,47 +77,8 @@ recipe;
 It's important that we merge everything into a new, empty `Object`. Otherwise,
 we would be modifying the original `Object`. In your browser's console, test
 what happens if the body of the above function were `return Object.assign(obj, {
-[key]: value });`. Uh oh, back to being destructive!
-
-## Practice Merging Object Properties with `Object.assign`
-
-Let's write a function for a restaurant that accepts an old menu plus some
-changes we want to make and returns a new menu **without modifying the old
-menu**:
-
-```js
-function createNewMenu (oldMenu, menuChanges) {
-  return Object.assign({}, oldMenu, menuChanges);
-}
-
-const tuesdayMenu = {
-  cheesePlate: {
-    soft: 'Chèvre',
-    semiSoft: 'Gruyère',
-    hard: 'Manchego'
-  },
-  fries: 'Sweet potato',
-  salad: 'Caesar'
-};
-
-const newOfferings = {
-  cheesePlate: {
-    soft: 'Brie',
-    semiSoft: 'Fontina'
-  },
-  salad: 'Southwestern'
-};
-
-const wednesdayMenu = createNewMenu(tuesdayMenu, newOfferings);
-
-wednesdayMenu;
-// => { cheesePlate: { soft: "Brie", semiSoft: "Fontina", hard: "Manchego" }, fries: "Sweet potato", salad: "Southwestern" }
-
-tuesdayMenu;
-// => { cheesePlate: { soft: "Chèvre", semiSoft: "Gruyère", hard: "Manchego" }, fries: "Sweet potato", salad: "Caesar" }
-```
-
-Bon appétit!
+[key]: value });`. Uh oh, back to being destructive! Fortunately, we can avoid
+that by following the example above.
 
 ## Conclusion
 
