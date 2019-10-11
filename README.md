@@ -4,6 +4,7 @@
 
 - Identify `Object.assign`
 - Non-destructively assign new data with `Object.assign()`
+- Explain Performance Gains from non-Destructive Updates
 
 ## Introduction
 
@@ -53,9 +54,7 @@ recipe.flour = '1/2 cup';
 
 A common pattern for `Object.assign()` is to provide an empty `Object` as the
 first argument. That way we're providing an entirely new `Object` instead of
-modifying or overwriting the properties of an existing `Object`. This pattern
-allows us to rewrite the above `destructivelyUpdateObject()` function in a
-non-destructive way:
+modifying or overwriting the properties of an existing `Object`.
 
 ```js
 function nondestructivelyUpdateObject(obj, key, value) {
@@ -74,11 +73,44 @@ recipe;
 // => { eggs: 3 }
 ```
 
+In other languages (like Ruby), this behavior is called "merging." You take
+a original base `Object` (maybe with some typical "standard" attribute / value
+pairs already set), and then you "merge" in additional Object(s).
+
 It's important that we merge everything into a new, empty `Object`. Otherwise,
 we would be modifying the original `Object`. In your browser's console, test
 what happens if the body of the above function were `return Object.assign(obj, {
-[key]: value });`. Uh oh, back to being destructive! Fortunately, we can avoid
-that by following the example above.
+[key]: value });`.
+
+Uh-oh! Back to being destructive! Fortunately, we can avoid that by following
+the example above.
+
+## Explain Performance Gains from non-Destructive Updates
+
+Doing non-destructive updates (i.e. "creating new things and merging on top")
+is a really important pattern. It turns out that, in many places, non-destructive
+updates are _more performant_. The main reason on this is when you add something
+to an existing `Object`, the computer has to make sure that the `Object` has
+enough room to add what you're saying to add. If it doesn't, the computer needs
+to do cleanup work, find some more space, copy the old thing over, add the new,
+thing, and then resume work, etc. That "accounting" process is actually quite
+slow.
+
+`Object.assign`, however, avoids all that and says: "Hey, I created a thing that
+looks like this, give me space for it." This is faster.
+
+_Advanced: For Your Information_
+
+Furthermore, in the cloud-based world of programming we're moving more and more
+to, we can't be sure that two computers will share the same memory. They
+might be servers separated by centimeters or kilometers. When a design like this
+is used, we'll need to be sure to make sure the functions have "all they need"
+to run a function call _independently_ i.e. they have their own copy of the data
+they need and aren't sharing memory with other machines.
+
+We won't encounter these concerns in this module; however, cloud-based languages
+like Google's Go require us to think in this different paradigm to achieve
+massive scale. So, file it away for later!
 
 ## Conclusion
 
